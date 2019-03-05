@@ -1,20 +1,30 @@
 require('dotenv').config();
 const express = require('express');
+const bodyParser = require('body-parser');
 const db = require('./models/db'); // import triggers db connection
 const tripController = require('./models/trip/tripController');
 
+const { PORT } = process.env;
 const app = express();
-const port = process.env.PORT;
 
 
+// *** SERVER GLOBALS *** //
+app.use(bodyParser.json());
+
+// *** HOME ROUTES *** //
 app.get('/', (req, res) => res.send('hello blueyellowred!'));
 
+
+// *** TEST ROUTES *** //
 app.get('/test', tripController.findAllTrips, (req, res) => res.send('test'));
 
 app.post('/test', tripController.createTrip, (req, res) => res.redirect('/test'));
 
 
+// *** 404: FILE NOT FOUND *** //
 app.use((req, res) => res.status(404).send('sorry, we couldn\'t find that page...'));
+
+// *** ERROR HANDLER *** //
 app.use((err, req, res, next) => {
   // database errors
   if (err.db) {
@@ -22,7 +32,8 @@ app.use((err, req, res, next) => {
     return res.status(500).send(err.message);
   }
 
+  // default response
   return res.status(500).send('sorry, something broke...');
 });
 
-app.listen(port, () => console.log(`\n📡  server listening on port ${port}...`));
+app.listen(PORT, () => console.log(`\n📡  server listening on port ${PORT}...`));
