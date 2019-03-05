@@ -14,8 +14,7 @@ app.get('/test', tripController.findAllTrips, (req, res) => res.send('test'));
 app.post('/test', tripController.createTrip, (req, res) => res.redirect('/test'));
 
 
-app.use((req, res) => res.status(400).send('sorry, we couldn\'t find that page...'));
-
+app.use((req, res) => res.status(404).send('sorry, we couldn\'t find that page...'));
 app.use((err, req, res, next) => {
   // database errors
   if (err.db) {
