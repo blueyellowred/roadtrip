@@ -8,23 +8,25 @@ const { PORT } = process.env;
 const app = express();
 
 
-// *** SERVER GLOBALS *** //
+/* SERVER GLOBALS */
 app.use(bodyParser.json());
 
-// *** HOME ROUTES *** //
+/*  HOME ROUTES */
 app.get('/', (req, res) => res.send('hello blueyellowred!'));
 
+/* TRIP ROUTES */
+app.get('/trip/:tripId', tripController.findTripById, (req, res) => res.json(res.locals.trip));
 
-// *** TEST ROUTES *** //
+/* TEST ROUTES */
 app.get('/test', tripController.findAllTrips, (req, res) => res.json(res.locals.trips));
 
 app.post('/test', tripController.createTrip, (req, res) => res.json(res.locals.trip));
 
 
-// *** 404: FILE NOT FOUND *** //
+/* 404: FILE NOT FOUND */
 app.use((req, res) => res.status(404).send('sorry, we couldn\'t find that page...'));
 
-// *** ERROR HANDLER *** //
+/* ERROR HANDLER */
 app.use((err, req, res, next) => {
   // database errors
   if (err.db) {
