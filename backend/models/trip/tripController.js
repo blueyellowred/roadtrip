@@ -2,6 +2,24 @@ const { Trip } = require('./tripSchema');
 
 const tripController = {};
 
+tripController.createTrip = (req, res, next) => {
+  console.log('\ncreating trip...');
+  const { title, start, end } = req.body;
+  Trip.create({ title, start, end })
+    .then((data) => {
+      res.locals.trip = data;
+      // console.log('\nsaved to db as:', data);
+      next();
+    })
+    .catch((err) => {
+      const error = {
+        db: err,
+        message: 'failed to create trip',
+      };
+      next(error);
+    });
+};
+
 tripController.findTripById = (req, res, next) => {
   console.log('find trip by id...', req.params.tripId);
   const { tripId } = req.params;
@@ -38,23 +56,36 @@ tripController.findAllTrips = (req, res, next) => {
     });
 };
 
-tripController.createTrip = (req, res, next) => {
-  console.log('\ncreating trip...');
-  const { title, start, end } = req.body;
-  Trip.create({ title, start, end })
-    .then((data) => {
-      res.locals.trip = data;
-      // console.log('\nsaved to db as:', data);
+tripController.addWaypoint = (req, res, next) => {
+  console.log('adding waypoint...\n');
+
+  const { tripId } = req.params;
+  const { title, lat, lng } = req.body;
+
+  const newWaypoint = { title, lat, lng };
+
+
+  const query = { _id: tripId };
+  const updates = {
+    waypoints: [...res.locals.trip.waypoints, newWaypoint],
+  };
+  const options = {
+    new: true, // needed to get the complete updated document back
+  };
+
+  Trip.findOneAndUpdate(query, updates, options)
+    .then((updated) => {
+      console.log('updated trip:', updated);
+      res.locals.trip = updated;
       next();
     })
     .catch((err) => {
       const error = {
         db: err,
-        message: 'failed to create trip',
+        message: 'failed to add waypoint',
       };
       next(error);
     });
 };
-
 
 module.exports = tripController;
