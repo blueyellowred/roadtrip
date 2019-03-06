@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 
+import '../styles/splash.scss'
+
 const Splash = props => {
   return (
-    <div>
+    <div className="splash-container">
       <p>
         <h1>Welcome to Roadtrip Planner!</h1>
         Enter your start and end location to start a trip!
