@@ -16,9 +16,9 @@ app.get('/', (req, res) => res.send('hello blueyellowred!'));
 
 
 // *** TEST ROUTES *** //
-app.get('/test', tripController.findAllTrips, (req, res) => res.send('test'));
+app.get('/test', tripController.findAllTrips, (req, res) => res.json(res.locals.trips));
 
-app.post('/test', tripController.createTrip, (req, res) => res.redirect('/test'));
+app.post('/test', tripController.createTrip, (req, res) => res.json(res.locals.trip));
 
 
 // *** 404: FILE NOT FOUND *** //
