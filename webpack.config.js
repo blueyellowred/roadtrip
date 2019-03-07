@@ -8,39 +8,39 @@ module.exports = {
   entry: './client/src/app/index.js',
   output: {
     filename: 'index_bundle.js',
-    path: path.resolve(__dirname, './client/dist')
+    path: path.resolve(__dirname, './client/dist'),
   },
   devServer: {
     contentBase: './client/dist',
-    hot: true
+    hot: true,
   },
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Roadtrip Planner',
-      template: path.resolve(__dirname, './client/index.html')
+      template: path.resolve(__dirname, './client/index.html'),
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
   ],
   module: {
     rules: [
       {
         test: /\.(jsx|js)$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: ['babel-loader'],
       },
       {
-        test: /\.(css|scss)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        test: /\.(css|scss|sass)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: ['file-loader']
-      }
-    ]
+        use: ['file-loader'],
+      },
+    ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
-  }
+    extensions: ['*', '.js', '.jsx'],
+  },
 };
