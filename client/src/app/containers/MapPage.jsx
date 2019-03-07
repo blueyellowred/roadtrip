@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class MapPage extends Component {
   constructor(props) {
@@ -6,3 +6,5 @@ class MapPage extends Component {
     this.state = {};
   }
 }
+
+export default MapPage;

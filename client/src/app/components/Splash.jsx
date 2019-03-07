@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import '../styles/splash.scss'
+//import "../styles/splash.scss";
 
 const Splash = props => {
   return (
-    <div className="splash-container">
+    //splash-container
+    <div className="">
       <p>
         <h1>Welcome to Roadtrip Planner!</h1>
         Enter your start and end location to start a trip!
@@ -13,12 +14,22 @@ const Splash = props => {
         <form>
           <div>
             <label for="start-input">Start</label>
-            <input type="text" name="start" id="start-input" placeholder="Los Angeles" />
+            <input
+              type="text"
+              name="start"
+              id="start-input"
+              placeholder="Los Angeles"
+            />
           </div>
 
           <div>
             <label for="end-input">End</label>
-            <input type="text" name="end" id="end-input" placeholder="New York" />
+            <input
+              type="text"
+              name="end"
+              id="end-input"
+              placeholder="New York"
+            />
           </div>
 
           <button id="submit-button" className="" type="submit">
